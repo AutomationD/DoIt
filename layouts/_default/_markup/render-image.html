@@ -1,15 +1,18 @@
-{{/* Read the config */}}
+{{- $lightgallery := .Page.Params.lightgallery | default site.Params.Page.lightgallery | default false -}}
+{{- $optim := slice 
+    (dict "Process" "resize 800x webp q75" "descriptor" "800w")
+    (dict "Process" "resize 1200x webp q75" "descriptor" "1200w")
+    (dict "Process" "resize 1600x webp q75" "descriptor" "1600w")
+-}}
 
-{{- $imagesLinked := .Page.Params.imagesLinked | default page.Site.Params.page.imagesLinked | default true -}}
 {{- if .Title -}}
-    <figure>
-        {{- dict "Src" .Destination "Title" .Text "Caption" .Title "Linked" $imagesLinked "Resources" .Page.Resources | partial "plugin/image.html" -}}
-        <figcaption class="image-caption">
-            {{- .Title | safeHTML -}}
-        </figcaption>
-    </figure>
+<figure>
+    {{- dict "Src" .Destination "Title" .Text "Caption" .Title "Linked" $lightgallery "Loading" "lazy" "Resources" .Page.Resources "OptimConfig" $optim | partial "plugin/image.html" -}}
+    <figcaption class="image-caption">
+        {{- .Title | safeHTML -}}
+    </figcaption>
+</figure>
 {{- else -}}
-    <figure>
-        {{- dict "Src" .Destination "Title" .Text "Linked" $imagesLinked "Resources" .Page.Resources | partial "plugin/image.html" -}}
-    </figure>
+    {{- dict "Src" .Destination "Class" "tw-inline" "Title" .Text "Caption" .Title "Loading" "lazy" "Resources" .Page.Resources "OptimConfig" $optim | partial "plugin/image.html" -}}
 {{- end -}}
+

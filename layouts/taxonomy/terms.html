@@ -8,9 +8,9 @@
 
     <div class="page archive">
         {{- /* Title */ -}}
-        <h1 class="single-title animate__animated animate__pulse animate__faster">
+        <h2 class="single-title">
             {{- .Params.Title | default (T $taxonomies) | default $taxonomies | dict "Some" | T "allSome" -}}
-        </h1>
+        </h2>
 
         {{- /* Categories Page */ -}}
         {{- if eq $taxonomies "categories" -}}
@@ -22,11 +22,11 @@
                     {{- with $.Site.GetPage "taxonomy" (printf "%v/%v" $type $term) -}}
                     <div class="card-item">
                         <div class="card-item-wrapper">
-                            <h2 class="card-item-title">
+                            <h3 class="card-item-title">
                                 <a href="{{ .RelPermalink }}">
-                                    <i class="far fa-folder fa-fw"></i>&nbsp;{{ .Page.Title }} <sup>{{- len $pages -}}</sup>
+                                    {{ partial "plugin/fontawesome.html" (dict "Style" "regular" "Icon" "folder") }}&nbsp;{{ .Page.Title }} <sup>{{- len $pages -}}</sup>
                                 </a>
-                            </h2>
+                            </h3>
                             {{- range first 5 $pages -}}
                                 <article class="archive-item">
                                     <a href="{{ .RelPermalink }}" class="archive-item-link">
@@ -57,7 +57,7 @@
                         <div class="card-item-wrapper">
                             <h3 class="card-item-title">
                                 <a href="{{ .RelPermalink }}">
-                                    <i class="far fa-folder fa-fw"></i>&nbsp;{{ .Page.Title }} <sup>{{- len $pages -}}</sup>
+                                    {{ partial "plugin/fontawesome.html" (dict "Style" "regular" "Icon" "folder") }}&nbsp;{{ .Page.Title }} <sup>{{- len $pages -}}</sup>
                                 </a>
                             </h3>
                             {{- range first 5 $pages -}}
@@ -90,7 +90,7 @@
                         <div class="card-item-wrapper">
                             <h3 class="card-item-title">
                                 <a href="{{ .RelPermalink }}">
-                                    <i class="fas fa-user-circle fa-fw"></i>&nbsp;{{ .Page.Title }} <sup>{{- len $pages -}}</sup>
+                                    &nbsp;{{ .Page.Title }} <sup>{{- len $pages -}}</sup>
                                 </a>
                             </h3>
                             {{- range first 5 $pages -}}
